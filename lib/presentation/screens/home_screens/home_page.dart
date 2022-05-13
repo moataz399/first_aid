@@ -1,14 +1,22 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:first_aid/business_logic/cubit/app_cubit.dart';
 import 'package:first_aid/constants/strings.dart';
-import 'package:first_aid/presentation/screens/banner_details.dart';
+import 'package:first_aid/data/models/data_model.dart';
+import 'package:first_aid/presentation/screens/home_screens/banner_details.dart';
 import 'package:first_aid/presentation/widgets/components.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants/dimensions.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({
+    Key? key,
+  }) : super(key: key);
+
+  //final List data;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,10 +26,12 @@ class _HomePageState extends State<HomePage> {
   PageController pageController = PageController(viewportFraction: 1);
   var currPageValue = 0.0;
 
+  late List data;
+
   @override
   void initState() {
     super.initState();
-
+    AppCubit.of(context).getData();
     pageController.addListener(() {
       setState(() {
         currPageValue = pageController.page!;
@@ -35,69 +45,73 @@ class _HomePageState extends State<HomePage> {
     pageController.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //slider section
-        Column(
+    final cubit = AppCubit.of(context);
+    return BlocBuilder<AppCubit, AppState>(
+      builder: (context, state) {
+        if (state is Loading) {
+          return CupertinoActivityIndicator();
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              height: 185,
-              child: PageView.builder(
-                  controller: pageController,
-                  itemCount: banner.length,
-                  itemBuilder: (context, index) => _buildBanner(index, banner)),
+            Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                  height: 185,
+                  child: PageView.builder(
+                      controller: pageController,
+                      itemCount: banner.length,
+                      itemBuilder: (context, index) =>
+                          _buildBanner(index, banner)),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                DotsIndicator(
+                  dotsCount: banner.length,
+                  position: currPageValue,
+                  decorator: DotsDecorator(
+                    activeColor: Colors.black,
+                    color: Colors.grey,
+                    size: const Size.square(9.0),
+                    activeSize: const Size(18.0, 9.0),
+                    activeShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
-            DotsIndicator(
-              dotsCount: banner.length,
-              position: currPageValue,
-              decorator: DotsDecorator(
-                activeColor: Colors.black,
-                color: Colors.grey,
-                size: const Size.square(9.0),
-                activeSize: const Size(18.0, 9.0),
-                activeShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+            Container(
+              margin: const EdgeInsets.all(15),
+              child: const Text(
+                'Learn First Aid For...',
+                style: TextStyle(fontSize: 16, color: Color(0xFF504D48)),
               ),
             ),
+            ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: cubit.firstAidData!.data!.length,
+                itemBuilder: (context, index) {
+                  return buildListViewItem(cubit.firstAidData!.data![index]);
+                })
           ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-          margin: const EdgeInsets.all(15),
-          child: const Text(
-            'Learn First Aid For...',
-            style: TextStyle(fontSize: 16, color: Color(0xFF504D48)),
-          ),
-        ),
-        ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return buildListViewItem(index);
-            })
-      ],
+        );
+      },
     );
   }
 
-  Widget buildListViewItem(int index) {
+  Widget buildListViewItem(Data data) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'detailsPage');
-        if (kDebugMode) {
-          print(index);
-        }
+        // Pass data.id
+        Navigator.pushNamed(context, 'detailsPage',arguments: data);
       },
       child: SizedBox(
         height: 80,
@@ -107,21 +121,20 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.all(15),
               child: Row(
                 children: [
-                  //  Icon(Icons.fifteen_mp,color: Colors.grey,),
                   Container(
                     height: 40,
                     width: 40,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage('assets/images/facebook.png'),
+                      image: NetworkImage(data.icon!),
                       fit: BoxFit.cover,
                     )),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text(
-                    'Diabetic Emergency',
+                  Text(
+                    data.title!,
                     style: TextStyle(
                         fontSize: 20,
                         color: Color(0xFF07060C),

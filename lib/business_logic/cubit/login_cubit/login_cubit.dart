@@ -23,7 +23,7 @@ class LoginCubit extends Cubit<LoginState> {
     });
   }
 
-  Widget suffixIcon = Icon(Icons.remove_red_eye_outlined);
+  Widget suffixIcon =  Icon(Icons.remove_red_eye_outlined);
   bool isPasswordShown = false;
 
   void changeSuffixIcon() {
@@ -33,4 +33,9 @@ class LoginCubit extends Cubit<LoginState> {
         : Icon(Icons.remove_red_eye_outlined);
     emit(ChangeLoginPasswordMode());
   }
-}
+
+
+  Future<void> logOut() async {
+    FirebaseAuth.instance.signOut();
+  }
+ }

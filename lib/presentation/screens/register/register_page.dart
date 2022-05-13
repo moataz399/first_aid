@@ -3,7 +3,6 @@ import 'package:first_aid/presentation/widgets/big_text.dart';
 import 'package:first_aid/presentation/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);

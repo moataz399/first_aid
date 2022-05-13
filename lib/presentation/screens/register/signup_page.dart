@@ -7,13 +7,14 @@ import '../../../business_logic/cubit/login_cubit/login_cubit.dart';
 import '../../../constants/colors.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
+var formKey =  GlobalKey<FormState>();
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var nameController = TextEditingController();
-  final _formKey =  GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class SignUpPage extends StatelessWidget {
             child: Container(
               child: SingleChildScrollView(
                 child: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +126,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate()) {
                            cubit.userRegister(
                                 name: nameController.text.trim(),
                                 email: emailController.text.trim(),
@@ -149,44 +150,44 @@ class SignUpPage extends StatelessWidget {
                       SizedBox(
                         height: 50,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 100.0),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Container(
-                                  height: 36,
-                                  width: 36,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/facebook.png'),
-                                  )),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 60,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Container(
-                                  height: 36,
-                                  width: 36,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/images/google.png'),
-                                  )),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 100.0),
+                      //   child: Row(
+                      //     children: [
+                      //       Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Center(
+                      //           child: Container(
+                      //             height: 36,
+                      //             width: 36,
+                      //             decoration: BoxDecoration(
+                      //                 image: DecorationImage(
+                      //               image: AssetImage(
+                      //                   'assets/images/facebook.png'),
+                      //             )),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       SizedBox(
+                      //         width: 60,
+                      //       ),
+                      //       Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Center(
+                      //           child: Container(
+                      //             height: 36,
+                      //             width: 36,
+                      //             decoration: BoxDecoration(
+                      //                 image: DecorationImage(
+                      //               image:
+                      //                   AssetImage('assets/images/google.png'),
+                      //             )),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

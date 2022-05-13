@@ -1,9 +1,13 @@
 import 'package:first_aid/constants/colors.dart';
+import 'package:first_aid/data/models/data_model.dart';
 import 'package:first_aid/presentation/widgets/expansion_pannel.dart';
+import 'package:first_aid/presentation/widgets/video_player.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+  final Data data;
+
+  DetailsPage({required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -11,19 +15,18 @@ class DetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.mainColor,
-        title: Text('burns'),
+        title: Text(data.title!),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             //video or image
-            Container(
-              height: 192,
-              width: double.infinity,
-              color: Colors.black,
-            ),
-
-            //  VideoBubble(url: 'https://www.youtube.com/watch?v=HYnKq0ErrPU'),
+            // Container(
+            //   child: VideoBubble(
+            //       url: 'https://www.youtube.com/watch?v=HYnKq0ErrPU'),
+            //   height: 192,
+            //   width: double.infinity,
+            // ),
 
             Padding(
               padding: const EdgeInsets.only(top: 30.0),

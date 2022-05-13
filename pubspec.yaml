@@ -45,6 +45,7 @@ dependencies:
   get: ^4.6.1
   flick_video_player:
   video_player: ^2.4.0
+  dio:
 
 
 dev_dependencies:

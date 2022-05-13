@@ -1,17 +1,18 @@
 import 'package:first_aid/business_logic/cubit/login_cubit/login_cubit.dart';
 import 'package:first_aid/constants/colors.dart';
+import 'package:first_aid/constants/strings.dart';
 import 'package:first_aid/presentation/widgets/app_icon.dart';
 import 'package:first_aid/presentation/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+var _formKey = new GlobalKey<FormState>();
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  final _formKey = new GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class LoginPage extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Navigator.pushReplacementNamed(context, 'learnPage');
+          Navigator.pushReplacementNamed(context, learnPage);
         }
         if (state is LoginErrorState) {
           Fluttertoast.showToast(
@@ -60,6 +61,7 @@ class LoginPage extends StatelessWidget {
                         height: 80,
                       ),
                       TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         validator: (value) =>
                             value!.isEmpty ? 'please enter your email' : null,
@@ -76,6 +78,7 @@ class LoginPage extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
+
                         obscureText: cubit.isPasswordShown,
                         controller: passwordController,
                         decoration: InputDecoration(
@@ -98,15 +101,8 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: BigText(
-                          text: 'I forgot my password!',
-                          size: 15,
-                        ),
-                      ),
                       SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -144,44 +140,7 @@ class LoginPage extends StatelessWidget {
                       SizedBox(
                         height: 50,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 100.0),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Container(
-                                  height: 36,
-                                  width: 36,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/facebook.png'),
-                                  )),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 60,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Container(
-                                  height: 36,
-                                  width: 36,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/images/google.png'),
-                                  )),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+
                     ],
                   ),
                 ),
