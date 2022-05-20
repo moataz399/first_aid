@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,15 +10,10 @@ late String initialRoute;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
 
-  FirebaseAuth.instance.authStateChanges().listen((user) {
-    if (user == null) {
-      initialRoute = registerPage;
-    } else {
-      initialRoute = learnPage;
-    }
-  });
+initialRoute= splashScreen;
 
   BlocOverrides.runZoned(
     () {

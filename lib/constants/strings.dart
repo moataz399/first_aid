@@ -1,12 +1,13 @@
 const homePage = 'homePage';
 const registerPage = 'registerPage';
 const loginPage = 'loginPage';
-
 const signUpPage = 'signUpPage';
 const learnPage = 'learnPage';
 const detailsPage = 'detailsPage';
-
 const mainSplashScreen = 'mainSplashScreen';
+
+const splashScreen = 'splashScreen';
+
 List banner = [
   {
     "tips": [
@@ -16,7 +17,7 @@ List banner = [
     "name": "First Aid kit",
     "image": "assets/images/mid_kit.png",
     "des":
-    "The Be Red Cross Ready First Aid Kit contains essential first aid supplies to treat cuts, scrapes, pain, swelling and more. All 73 pieces of this kit are latex-free and are packaged in a soft pack with clear pocket organization for quick access. This kit is perfect for the home or on-the-go.",
+        "The Be Red Cross Ready First Aid Kit contains essential first aid supplies to treat cuts, scrapes, pain, swelling and more. All 73 pieces of this kit are latex-free and are packaged in a soft pack with clear pocket organization for quick access. This kit is perfect for the home or on-the-go.",
   },
   {
     "tips": [
@@ -38,6 +39,6 @@ List banner = [
     "name": "water safety",
     "image": "assets/images/water.png",
     "des":
-    "Staying safe in and around the water is no accident-it takes knowledge and forethought. Whether it is a day at the beach or a pool party, do not let the good times distract your focus. Aquatic emergencies can happen anywhere, anytime and every second counts. Survival depends on quick rescue and immediate care.",
+        "Staying safe in and around the water is no accident-it takes knowledge and forethought. Whether it is a day at the beach or a pool party, do not let the good times distract your focus. Aquatic emergencies can happen anywhere, anytime and every second counts. Survival depends on quick rescue and immediate care.",
   }
 ];

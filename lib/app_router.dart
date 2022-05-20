@@ -4,6 +4,7 @@ import 'package:first_aid/data/repo/repos.dart';
 import 'package:first_aid/data/web_services/web_services.dart';
 import 'package:first_aid/presentation/screens/home_screens/details_page.dart';
 import 'package:first_aid/presentation/screens/register/signup_page.dart';
+import 'package:first_aid/splash_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,6 +65,10 @@ class AppRouter {
                   create: (context) => RegisterCubit(),
                   child: SignUpPage(),
                 ));
+
+      case splashScreen:
+        return MaterialPageRoute(
+            builder: (_) => SplashScreen());
     }
   }
 }

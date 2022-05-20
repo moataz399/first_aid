@@ -46,6 +46,8 @@ dependencies:
   flick_video_player:
   video_player: ^2.4.0
   dio:
+  webview_flutter:
+  url_launcher:
 
 
 dev_dependencies:

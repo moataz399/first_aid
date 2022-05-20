@@ -1,47 +1,61 @@
+import 'package:first_aid/data/models/data_model.dart';
 import 'package:flutter/material.dart';
 
 class ExpandingItems extends StatefulWidget {
-  ExpandingItems({Key? key}) : super(key: key);
+  ExpandingItems({Key? key, required this.data}) : super(key: key);
+  final Data data;
 
   @override
   _ExpandingItemsState createState() => _ExpandingItemsState();
 }
 
 class _ExpandingItemsState extends State<ExpandingItems> {
-  List<bool> _isExpanded = List.generate(10, (_) => false);
-
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: ExpansionPanelList(
-          expansionCallback: (index, isExpanded) => setState(() {
-            _isExpanded[index] = !isExpanded;
-          }),
-          children: [
-            for (int i = 0; i < 10; i++)
-              ExpansionPanel(
-                body: ListTile(
-                    subtitle: Text(
-                  "... amet, consectetur adipiscing elit. Nullam ultricies porta rutrum. Vivamus id ultrices velit. Sed tellus lorem, egestas ac magna non, fringilla sagittis erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce tempor mi et eleifend fermentum. Sed quis molestie nunc.",
-                  style: TextStyle(
-                    fontSize: 18,
+    late List<bool> _isExpanded;
 
-                  ),
-                )),
-                headerBuilder: (_, isExpanded) {
-                  return Center(
-                    child: Text(
-                      "Lorem ipsum dolor sit ...",
-                      style: TextStyle(fontSize: 18, color: Color(0xFF07060C)),
-                    ),
-                  );
-                },
-                isExpanded: _isExpanded[i],
-              )
-          ],
-        ),
-      ),
+    _isExpanded = List.generate(widget.data.faqs!.length, (_) => false);
+
+    return SingleChildScrollView(
+      child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: widget.data.faqs!.length,
+          itemBuilder: (context, index) {
+            return Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ExpansionPanelList(
+                  expansionCallback: (index, isExpanded) => setState(() {
+                    _isExpanded[index] = !isExpanded;
+                  }),
+                  children: [
+                    ExpansionPanel(
+                      body: ListTile(
+                          subtitle: Center(
+                        child: Text(
+                          widget.data.faqs![index].answer!,
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      )),
+                      headerBuilder: (_, isExpanded) {
+                        return Center(
+                          child: Text(
+                            widget.data.faqs![index].question!,
+                            style: const TextStyle(
+                                fontSize: 18, color: Color(0xFF07060C)),
+                          ),
+                        );
+                      },
+                      isExpanded: _isExpanded[index],
+                    )
+                  ],
+                ),
+              ),
+            );
+          }),
     );
   }
 }

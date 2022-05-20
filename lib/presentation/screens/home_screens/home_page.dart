@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
         if (state is Loading) {
-          return CupertinoActivityIndicator();
+          return Center(child: CupertinoActivityIndicator());
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: cubit.firstAidData!.data!.length,
                 itemBuilder: (context, index) {
                   return buildListViewItem(cubit.firstAidData!.data![index]);
-                })
+                }),
           ],
         );
       },
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () {
         // Pass data.id
-        Navigator.pushNamed(context, 'detailsPage',arguments: data);
+        Navigator.pushNamed(context, 'detailsPage', arguments: data);
       },
       child: SizedBox(
         height: 80,
